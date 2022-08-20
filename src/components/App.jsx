@@ -1,16 +1,26 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './App.module.css';
+import { Searchbar } from './Searchbar/Searchbar';
+import { ImageGallery } from './ImageGallery.jsx/ImageGallery';
+
+export class App extends React.Component {
+  state = {
+    imageName: '',
+  };
+
+  handleSearchSubmit = imageName => {
+    this.setState({ imageName });
+  };
+  render() {
+    return (
+      <div className={styles.app}>
+        <Searchbar onSubmit={this.handleSearchSubmit} />
+        <ImageGallery imageName={this.state.imageName} />
+      </div>
+    );
+  }
+}
+App.propTypes = {
+  imageName: PropTypes.string,
 };
