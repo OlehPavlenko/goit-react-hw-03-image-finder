@@ -9,8 +9,8 @@ export class App extends React.Component {
     imageName: '',
   };
 
-  handleSearchSubmit = imageName => {
-    this.setState({ imageName });
+  handleSearchSubmit = (imageName) => {
+    this.setState({ imageName: imageName });
   };
   render() {
     return (

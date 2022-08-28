@@ -7,18 +7,16 @@ export class Searchbar extends React.Component {
     imageName: '',
 };
 
-    handleSubmit = evt => {
-    evt.preventDefault();
-    if (this.state.imageName.trim() === '') {
-    alert('not name');
-    return;
+    handleSubmit = (evt) => {
+        evt.preventDefault();
+        this.props.onSubmit(this.state.imageName);
+        this.setState({ imageName: '' });
     }
-    this.props.onSubmit(this.state.imageName);
-};
 
-    handleChange = evt => {
-    this.setState({ imageName: evt.currentTarget.value.toLowerCase() });
-};
+    handleChange = (evt) => {
+        this.setState({ imageName: evt.target.value });
+    }
+
     render() {
     return (
     <header className={styles.searchbar}>
@@ -30,6 +28,7 @@ export class Searchbar extends React.Component {
         <input
             className={styles.searchFormInput}
             type="text"
+            autoComplete='off'
             placeholder="Search images and photos"
             value={this.state.imageName}
             onChange={this.handleChange}

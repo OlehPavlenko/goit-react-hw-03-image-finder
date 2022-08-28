@@ -15,7 +15,8 @@ export class ImageGallery extends React.Component {
 };
     componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.imageName;
-    const nextName = this.props.imageName;
+        const nextName = this.props.imageName;
+        
     if (prevName !== nextName) {
     this.setState({ status: 'pending', page: 1, image: [] });
     fetchImage(nextName, this.state.page)
@@ -26,16 +27,18 @@ export class ImageGallery extends React.Component {
     this.setState({ status: 'pending' });
     fetchImage(nextName, this.state.page)
         .then(images =>
-        this.setState(prevState => ({
-            images: [...prevState.images, ...images],
-            status: 'resolved',
+        this.setState(prevState => {
+            return {
+                images: [...prevState.images, ...images],
+                status: 'resolved',
+            };
         }))
-        )
+        
         .catch(error => this.setState({ status: 'rejected' }));
     }
 }
-
-    loreMore = () => {
+  
+    loadMore = () => {
     this.setState(prevState => ({
     page: prevState.page + 1,
     }));
