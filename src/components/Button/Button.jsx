@@ -1,14 +1,19 @@
-import styles from './Button.module.css';
-import PropTypes from 'prop-types';
+import { Component } from 'react';
 
-export const Button = ({ onClick }) => (
-    <div>
-        <button type="button" className={styles.button} onClick={onClick}>
-            Load more
-        </button>
-    </div>
-);
-
-Button.propTypes = {
-    onClick: PropTypes.func,
-};
+class loaderBtn extends Component {
+  render() {
+    return (
+      <button
+        className="Button"
+        type="button"
+        // style={{ visibility: this.props.info }}
+        onClick={() => {
+          this.props.addPage(1);
+        }}
+      >
+        Load more
+      </button>
+    );
+  }
+}
+export default loaderBtn;

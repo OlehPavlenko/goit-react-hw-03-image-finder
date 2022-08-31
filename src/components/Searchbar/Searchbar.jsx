@@ -1,44 +1,54 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Searchbar.module.css';
+import { Component } from 'react';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-export class Searchbar extends React.Component {
-    state = {
-    imageName: '',
-};
 
-    handleSubmit = (evt) => {
-        evt.preventDefault();
-        this.props.onSubmit(this.state.imageName);
-        this.setState({ imageName: '' });
+
+export default class Searchbar extends Component {
+  state = {
+    searchterm: '',
+    images: '',
+  };
+
+  onChange = e => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
+
+  onSumbit = e => {
+    e.preventDefault();
+    if (this.state.searchterm.trim() === '') {
+      Notify.failure('Введіть пошуковий запит');
+      return;
     }
+    this.props.onSubmit(this.state.searchterm);
+    this.setState({ searchterm: '' });
+  };
 
-    handleChange = (evt) => {
-        this.setState({ imageName: evt.target.value });
-    }
-
-    render() {
+  render() {
     return (
-    <header className={styles.searchbar}>
-        <form className={styles.form} onSubmit={this.handleSubmit}>
-        <button type="submit" className={styles.searchFormButton}>
-            <span className={styles.searchFormButtonLabel}>Search</span>
-        </button>
+      <header className="Searchbar">
+        <form
+          className="SearchForm"
+          onSubmit={e => {
+            this.onSumbit(e);
+          }}
+        >
+          <button type="submit" className="SearchForm-button">
+            <span className="button-label"></span>
+          </button>
 
-        <input
-            className={styles.searchFormInput}
+          <input
+            className="SearchForm-input"
             type="text"
-            autoComplete='off'
+            name="searchterm"
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
-            value={this.state.imageName}
-            onChange={this.handleChange}
-        />
+            onChange={this.onChange}
+            value={this.state.searchterm}
+          />
         </form>
-        </header>
-        );
-    }
+      </header>
+    );
+  }
 }
-Searchbar.propTypes = {
-    handleChange: PropTypes.func,
-    handleSubmit: PropTypes.func,
-};

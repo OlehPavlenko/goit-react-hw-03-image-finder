@@ -1,26 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './App.module.css';
-import { Searchbar } from './Searchbar/Searchbar';
-import { ImageGallery } from './ImageGallery.jsx/ImageGallery';
+import { Component } from 'react';
+import Searchbar from './Searchbar/Searchbar';
+import ImageGallery from './ImageGallery/ImageGallery';
 
-export class App extends React.Component {
+// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+
+export class App extends Component {
   state = {
-    imageName: '',
+    searchterm: '',
   };
 
-  handleSearchSubmit = (imageName) => {
-    this.setState({ imageName: imageName });
+  getSearchterm = searchterm => {
+    this.setState({ searchterm });
   };
+
   render() {
     return (
-      <div className={styles.app}>
-        <Searchbar onSubmit={this.handleSearchSubmit} />
-        <ImageGallery imageName={this.state.imageName} />
+      <div>
+        <Searchbar onSubmit={this.getSearchterm} />
+
+        <ImageGallery searchterm={this.state.searchterm} />
       </div>
     );
   }
 }
-App.propTypes = {
-  imageName: PropTypes.string,
-};
